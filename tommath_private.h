@@ -6,6 +6,7 @@
 
 #include "tommath.h"
 #include "tommath_class.h"
+#include <limits.h>
 
 /*
  * Private symbols
@@ -158,9 +159,7 @@ typedef private_mp_word mp_word;
 #define MP_SIZEOF_BITS(type)    ((size_t)CHAR_BIT * sizeof(type))
 #define MP_MAXFAST              (int)(1uL << (MP_SIZEOF_BITS(mp_word) - (2u * (size_t)MP_DIGIT_BIT)))
 
-/* TODO: Remove PRIVATE_MP_WARRAY as soon as deprecated MP_WARRAY is removed from tommath.h */
-#undef MP_WARRAY
-#define MP_WARRAY PRIVATE_MP_WARRAY
+#define MP_WARRAY (int)(1uLL << (((CHAR_BIT * sizeof(private_mp_word)) - (2 * MP_DIGIT_BIT)) + 1))
 
 /* TODO: Remove PRIVATE_MP_PREC as soon as deprecated MP_PREC is removed from tommath.h */
 #ifdef PRIVATE_MP_PREC
